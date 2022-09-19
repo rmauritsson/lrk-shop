@@ -1,7 +1,15 @@
-import Home from "./pages/Home";
+import Navbar from "./components/partials/Navbar";
+import RouteRouter from "./routes";
 
 function App() {
-  return <Home />;
+  return (
+    <>
+      <Navbar />
+      <div className="mt-[70px]">
+        <RouteRouter />
+      </div>
+    </>
+  );
 }
 
 export default App;
