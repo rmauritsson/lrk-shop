@@ -1,3 +1,4 @@
+import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import {
   CartIcon,
@@ -6,9 +7,12 @@ import {
   SearchIcon,
   UserCircleIcon,
 } from "../../../assets/icons";
+import { setShowAuthModal } from "../../../redux/features/AuthModalSlice";
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   return (
     <>
       <div
@@ -30,7 +34,10 @@ const Navbar = () => {
             <Link to="/cart">Cart</Link>
           </div>
 
-          <div className="flex space-x-1 cursor-pointer">
+          <div
+            onClick={() => dispatch(setShowAuthModal())}
+            className="flex space-x-1 cursor-pointer"
+          >
             <UserCircleIcon />
             <p>Sign in</p>
           </div>
