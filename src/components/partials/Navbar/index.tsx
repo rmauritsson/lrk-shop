@@ -1,16 +1,19 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import {
   CartIcon,
   HomeIcon,
+  LogoIcon,
   MenuLeftIcon,
   SearchIcon,
   UserCircleIcon,
 } from "../../../assets/icons";
 import { setShowAuthModal } from "../../../redux/features/AuthModalSlice";
+import { RootReduxStateType } from "../../../redux/types";
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const user = useSelector((state: RootReduxStateType) => state.user);
   const dispatch = useDispatch();
 
   return (
@@ -19,15 +22,20 @@ const Navbar = () => {
         id="main-navigation"
         className="block flex justify-between fixed inset-x-0 top-0 bg-white z-10 shadow px-[10px] md:px-[20px] py-[20px]"
       >
-        <div className="cursor-pointer" onClick={() => navigate("/")}>
-          LRK <span>SHOP</span>
+        <div
+          className="cursor-pointer font-header flex "
+          onClick={() => navigate("/")}
+        >
+          <LogoIcon />
+          <span className=""> LRK</span>{" "}
+          <span className="font-bold text-black">SHOP</span>
         </div>
 
         <div className="hidden md:flex space-x-4">
           <div className="flex space-x-1 cursor-pointer">
             <div className="relative">
               <CartIcon />
-              <div className="absolute -top-2 -right-2 w-[20px] h-[20px] bg-green-500 rounded-full text-white text-[14px] flex justify-center items-center">
+              <div className="absolute -top-2 -right-2 w-[20px] h-[20px] bg-indigo-600 rounded-full text-white text-[14px] flex justify-center items-center">
                 0
               </div>
             </div>
@@ -39,7 +47,13 @@ const Navbar = () => {
             className="flex space-x-1 cursor-pointer"
           >
             <UserCircleIcon />
-            <p>Sign in</p>
+            <p>
+              {user.isUserExists
+                ? user.isLoggedIn
+                  ? "Log out"
+                  : "Log in"
+                : "Sign up"}
+            </p>
           </div>
         </div>
       </div>
@@ -61,13 +75,16 @@ const Navbar = () => {
           </div>
 
           <div className="relative cursor-pointer">
-            <div className="absolute -top-2 -right-2 w-[20px] h-[20px] bg-green-500 rounded-full text-white text-[14px] flex justify-center items-center">
+            <div className="absolute -top-2 -right-2 w-[20px] h-[20px] bg-indigo-600 rounded-full text-white text-[14px] flex justify-center items-center">
               0
             </div>
             <CartIcon />
           </div>
 
-          <div className="cursor-pointer">
+          <div
+            onClick={() => dispatch(setShowAuthModal())}
+            className="cursor-pointer"
+          >
             <UserCircleIcon />
           </div>
         </div>

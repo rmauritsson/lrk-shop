@@ -1,4 +1,5 @@
 import { useDispatch } from "react-redux";
+import { LogoIcon } from "../../assets/icons";
 import { setIsUserExists } from "../../redux/features/UserSlice";
 
 const Login = () => {
@@ -8,11 +9,12 @@ const Login = () => {
     <div className="flex min-h-full items-center justify-center py-12 px-[20px]">
       <div className="w-[400px] space-y-8">
         <div>
-          <img
-            className="mx-auto h-12 w-auto"
-            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-            alt="Your Company"
-          />
+          <div className="cursor-pointer font-header flex justify-center items-center ">
+            <LogoIcon />
+            <span className=""> LRK</span>{" "}
+            <span className="font-bold text-black">SHOP</span>
+          </div>
+
           <h2 className="mt-6 text-center">Welcome Back</h2>
           <p className="mt-2 text-center text-md text-gray-600">
             Not registered?

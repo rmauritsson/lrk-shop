@@ -10,8 +10,6 @@ import RouteRouter from "./routes";
 function App() {
   const state = useSelector((state: RootReduxStateType) => state);
 
-  console.log("Testing", state);
-
   return (
     <>
       {state.auth.showAuthModal && (
