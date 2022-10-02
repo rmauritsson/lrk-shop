@@ -26,6 +26,7 @@ const UserSlice = createSlice({
   },
 });
 
-export const { setIsLoggedIn, setIsLoggedOut } = UserSlice.actions;
+export const { setIsLoggedIn, setIsLoggedOut, setIsUserExists } =
+  UserSlice.actions;
 
 export default UserSlice.reducer;

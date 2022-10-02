@@ -1,60 +1,112 @@
+import { useDispatch } from "react-redux";
+import { setIsUserExists } from "../../redux/features/UserSlice";
+
 const Register = () => {
+  const dispatch = useDispatch();
+
   return (
-    <div className="flex">
-      <div>
-        <img
-          className="w-[340px] rounded"
-          src="assets/images/register.jpg"
-          alt="register"
-        />
-      </div>
-      <div className="p-[20px] flex flex-col justify-between">
-        <div className="text-center mb-[50px]">
-          <h1 className="font-semibold">Create an Account</h1>
-          <p className="text-gray-700">
-            Already registered?{" "}
-            <span className="text-green-700 font-semibold">Login</span>
+    <div className="flex min-h-full items-center justify-center py-12 px-[20px]">
+      <div className="w-[400px] space-y-8">
+        <div>
+          <img
+            className="mx-auto h-12 w-auto"
+            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+            alt="Your Company"
+          />
+          <h2 className="mt-6 text-center">Create your Account</h2>
+          <p className="mt-2 text-center text-md text-gray-600">
+            Already registered?
+            <span
+              onClick={() => dispatch(setIsUserExists())}
+              className="cursor-pointer ml-2 font-medium text-indigo-600 hover:text-indigo-500"
+            >
+              Login
+            </span>
           </p>
-
-          <div className="flex flex-col mt-[50px] min-w-[340px]">
-            <label htmlFor="username" className={styles.label}>
-              <input
-                type="text"
-                id="username"
-                className={styles.inputs}
-                placeholder="Enter your name"
-              />
-            </label>
-
-            <label htmlFor="email" className={styles.label}>
-              <input
-                type="text"
-                id="email"
-                className={styles.inputs}
-                placeholder="Enter your email"
-              />
-            </label>
-
-            <label htmlFor="password" className={styles.label}>
-              <input
-                type="text"
-                id="password"
-                className={styles.inputs}
-                placeholder="Enter your password"
-              />
-            </label>
-          </div>
         </div>
+        <form className="mt-8 space-y-6">
+          <input type="hidden" name="remember" value="true" />
+          <div className="-space-y-px rounded-md shadow-sm">
+            <div>
+              <label htmlFor="email-address" className="sr-only">
+                Email address
+              </label>
+              <input
+                id="email-address"
+                name="email"
+                type="email"
+                autoComplete="email"
+                required
+                className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 text-md"
+                placeholder="Email address"
+              />
+            </div>
+            <div>
+              <label htmlFor="password" className="sr-only">
+                Password
+              </label>
+              <input
+                id="password"
+                name="password"
+                type="password"
+                autoComplete="current-password"
+                required
+                className="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 "
+                placeholder="Password"
+              />
+            </div>
+          </div>
 
-        <button>Register</button>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center">
+              <input
+                id="remember-me"
+                name="remember-me"
+                type="checkbox"
+                className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+              />
+              <label
+                htmlFor="remember-me"
+                className="ml-2 block text-sm text-gray-900"
+              >
+                Remember me
+              </label>
+            </div>
+
+            <div className="text-sm">
+              <span className="font-medium text-indigo-600 hover:text-indigo-500">
+                Forgot your password?
+              </span>
+            </div>
+          </div>
+
+          <div>
+            <button
+              type="submit"
+              className="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4  font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+            >
+              <span className="absolute inset-y-0 left-0 flex items-center pl-3">
+                <svg
+                  className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </span>
+              Register
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   );
-};
-
-const styles = {
-  inputs: "border p-2 rounded-[5px]",
-  label: "flex flex-col mb-2",
 };
 
 export default Register;
