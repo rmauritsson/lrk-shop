@@ -1,11 +1,34 @@
-import React from "react";
-import "./App.css";
+import { useSelector } from "react-redux";
+import { ToastContainer } from "react-toastify";
+import Login from "./components/Auth/Login";
+import SendRegisterEmail from "./components/Auth/SendRegisterEmail";
+import AuthModal from "./components/Modal/AuthModal";
+import Footer from "./components/partials/Footer";
+import Navbar from "./components/partials/Navbar";
+import { RootReduxStateType } from "./redux/types";
+import RouteRouter from "./routes";
 
 function App() {
+  const state = useSelector((state: RootReduxStateType) => state);
+
   return (
-    <h1 className="text-3xl font-bold underline text-red-600">
-      Simple React Typescript Tailwind Sample
-    </h1>
+    <>
+      {state.auth.showAuthModal && (
+        <AuthModal>
+          <div>
+            {state.user.isUserExists ? <Login /> : <SendRegisterEmail />}
+          </div>
+        </AuthModal>
+      )}
+      <Navbar />
+      <div className="min-h-screen overflow-auto pt-[74px]">
+        <div className="flex flex-grow">
+          <ToastContainer />
+          <RouteRouter />
+        </div>
+        <Footer />
+      </div>
+    </>
   );
 }
 
