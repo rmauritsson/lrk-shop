@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
+import { ToastContainer } from "react-toastify";
 import Login from "./components/Auth/Login";
-import Register from "./components/Auth/Register";
+import SendRegisterEmail from "./components/Auth/SendRegisterEmail";
 import AuthModal from "./components/Modal/AuthModal";
 import Footer from "./components/partials/Footer";
 import Navbar from "./components/partials/Navbar";
@@ -14,12 +15,17 @@ function App() {
     <>
       {state.auth.showAuthModal && (
         <AuthModal>
-          <div>{state.user.isUserExists ? <Login /> : <Register />}</div>
+          <div>
+            {state.user.isUserExists ? <Login /> : <SendRegisterEmail />}
+          </div>
         </AuthModal>
       )}
       <Navbar />
-      <div className="pt-[70px]">
-        <RouteRouter />
+      <div className="min-h-screen overflow-auto pt-[74px]">
+        <div className="flex flex-grow">
+          <ToastContainer />
+          <RouteRouter />
+        </div>
         <Footer />
       </div>
     </>

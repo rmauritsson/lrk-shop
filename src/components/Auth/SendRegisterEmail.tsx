@@ -2,40 +2,53 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { LogoIcon, PadlockIcon } from "../../assets/icons";
 import { setIsUserExists } from "../../redux/features/UserSlice";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
+import { FcGoogle } from "react-icons/fc";
 import "react-toastify/dist/ReactToastify.css";
 import ClipLoader from "react-spinners/ClipLoader";
-//@ts-ignore
-import bcrypt from "bcryptjs";
+import { auth } from "../../utils/firebase";
+import { sendSignInLinkToEmail } from "firebase/auth";
+import { closeShowAuthModal } from "../../redux/features/AuthModalSlice";
 
-const Register = () => {
+const SendRegisterEmail = () => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
 
   const handleSubmit = async (e: any) => {
-    try {
-      e.preventDefault();
-      setLoading(true);
-      const hashedPassword = bcrypt.hashSync(password, 10);
+    e.preventDefault();
+    setLoading(true);
 
-      console.log("Account Created");
-      setLoading(false);
-      toast.success(
-        `Click on the link that has been sent to ${email} to complete your registration`
-      );
+    const config = {
+      url: "http://localhost:3000/register",
+      handleCodeInApp: true,
+    };
 
-      // save to local storage
-      //window.localStorage.setItem("emailForRegistration", email);
-    } catch (error) {
-      console.log("Failed to Create account");
-    }
+    sendSignInLinkToEmail(auth, email, config)
+      .then(() => {
+        setLoading(false);
+        toast.success(
+          `Click on the link that has been sent to ${email} to complete your registration`,
+          {
+            className: "text-[11px] md:text-[14px]",
+          }
+        );
+        window.localStorage.setItem("emailForRegistration", email);
+        setEmail("");
+        dispatch(closeShowAuthModal());
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        setLoading(false);
+        console.log(`${errorCode}: ${errorMessage}`);
+        toast.error(`Failed to send registration link`);
+      });
   };
 
   return (
     <div className="flex min-h-full items-center justify-center py-12 px-[20px]">
-      <div className="w-[400px] space-y-8">
+      <div className="w-[320px] md:w-[400px] space-y-8">
         <div>
           <div className="cursor-pointer font-header flex justify-center items-center ">
             <LogoIcon />
@@ -70,24 +83,8 @@ const Register = () => {
                 autoComplete="email"
                 autoFocus
                 required
-                className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 text-md"
+                className="relative block w-full appearance-none rounded-none rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 text-md"
                 placeholder="Email address"
-              />
-            </div>
-            <div>
-              <label htmlFor="password" className="sr-only">
-                Password
-              </label>
-              <input
-                id="password"
-                name="password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                autoComplete="current-password"
-                required
-                className="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 "
-                placeholder="Password"
               />
             </div>
           </div>
@@ -114,11 +111,14 @@ const Register = () => {
               <span className="bg-white px-4 text-sm text-gray-500">OR</span>
             </div>
           </div>
-          <button>Continue with Google</button>
+          <button className="group relative flex w-full justify-center items-center rounded-md border border-transparent bg-gray-600 py-2 px-4  font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">
+            <FcGoogle className="mr-2" />
+            Continue with Google
+          </button>
         </div>
       </div>
     </div>
   );
 };
 
-export default Register;
+export default SendRegisterEmail;

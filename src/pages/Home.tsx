@@ -1,7 +1,7 @@
 const Home = () => {
   return (
     <div className="w-full min-h-screen">
-      <div className="flex flex-col">
+      <div className="flex flex-col px-2">
         <div>
           <p className="">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do

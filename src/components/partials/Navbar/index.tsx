@@ -20,7 +20,7 @@ const Navbar = () => {
     <>
       <div
         id="main-navigation"
-        className="block flex justify-between fixed inset-x-0 top-0 bg-white z-10 shadow px-[10px] md:px-[20px] py-[20px]"
+        className="block flex h-[70px] justify-between fixed inset-x-0 top-0 bg-white z-10 shadow px-[10px] md:px-[20px] py-[20px]"
       >
         <div
           className="cursor-pointer font-header flex "

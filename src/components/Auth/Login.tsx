@@ -1,5 +1,6 @@
 import { useDispatch } from "react-redux";
 import { LogoIcon } from "../../assets/icons";
+import { FcGoogle } from "react-icons/fc";
 import { setIsUserExists } from "../../redux/features/UserSlice";
 
 const Login = () => {
@@ -7,7 +8,7 @@ const Login = () => {
 
   return (
     <div className="flex min-h-full items-center justify-center py-12 px-[20px]">
-      <div className="w-[400px] space-y-8">
+      <div className="w-[320px] md:w-[400px] space-y-8">
         <div>
           <div className="cursor-pointer font-header flex justify-center items-center ">
             <LogoIcon />
@@ -106,6 +107,21 @@ const Login = () => {
             </button>
           </div>
         </form>
+
+        <div>
+          <div className="relative py-4">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-b border-gray-300"></div>
+            </div>
+            <div className="relative flex justify-center">
+              <span className="bg-white px-4 text-sm text-gray-500">OR</span>
+            </div>
+          </div>
+          <button className="group relative flex w-full justify-center items-center rounded-md border border-transparent bg-gray-600 py-2 px-4  font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">
+            <FcGoogle className="mr-2" />
+            Continue with Google
+          </button>
+        </div>
       </div>
     </div>
   );
